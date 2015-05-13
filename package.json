@@ -1,0 +1,21 @@
+{
+  "name": "imgur",
+  "version": "0.0.0",
+  "description": "Imgur API library",
+  "keywords": [
+    "imgur",
+    "api"
+  ],
+  "homepage": "https://github.com/imgur/imgur.js",
+  "author": "Imgur <devs@imgur.com> (https://imgur.com/)",
+  "contributors": [
+    "Selby Walker <selby@imgur.com>"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/imgur/imgur.js.git"
+  },
+  "bugs:": "https://github.com/imgur/imgur.js/issues",
+
+  "main": "lib/imgur.js"
+}
