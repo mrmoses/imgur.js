@@ -18,3 +18,11 @@ Community
 The best way to reach out to Imgur for API support would be our
 [Google Group](https://groups.google.com/forum/#!forum/imgur), [Twitter](https://twitter.com/imgurapi), or via
  api@imgur.com.
+
+Building the Project
+--------------------
+
+  - `npm install`
+  - create a .imgur.json file in your root directory.  See [.imgur.json.sample](https://github.com/Imgur/imgur.js/blob/master/.imgur.json.sample) for sample format
+  - `npm run test` to run tests
+  - `npm run build` for built library files imgur.min.js and imgur.js
