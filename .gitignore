@@ -1,1 +1,7 @@
 node_modules
+coverage
+tmp
+npm-debug.log
+.grunt
+.DS_Store
+.imgur.json
