@@ -5,7 +5,6 @@
   "forin"         : false,
   "immed"         : true,
   "latedef"       : true,
-  "newcap"        : true,
   "noarg"         : true,
   "nonbsp"        : true,
   "nonew"         : true,
@@ -52,5 +51,19 @@
   "rhino"         : false,
   "worker"        : false,
   "wsh"           : false,
-  "yui"           : false
+  "yui"           : false,
+  "globals": {
+    "imgur": true,
+    "console": true,
+    "sinon": true,
+    "spy": true,
+    "stub": true,
+    "describe": true,
+    "before": true,
+    "after": true,
+    "beforeEach": true,
+    "afterEach": true,
+    "it": true,
+    "expect": true
+  }
 }

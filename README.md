@@ -23,6 +23,11 @@ Building the Project
 --------------------
 
   - `npm install`
-  - create a .imgur.json file in your root directory.  See [.imgur.json.sample](https://github.com/Imgur/imgur.js/blob/master/.imgur.json.sample) for sample format
   - `npm run test` to run tests
   - `npm run build` for built library files imgur.min.js and imgur.js
+
+Using the Project
+--------------------
+
+  - `var Imgur = require('imgur');`
+  - `var imgurInstance = Imgur(<API CLIENT ID>);`

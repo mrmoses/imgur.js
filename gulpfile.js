@@ -122,7 +122,7 @@ gulp.task('coverage', ['lint-src', 'lint-test'], function(done) {
 });
 
 // Lint and run our tests
-gulp.task('test', ['lint-src', 'lint-test'], function() {
+gulp.task('test', ['build', 'lint-test'], function() {
     require('babel/register');
     return test();
 });

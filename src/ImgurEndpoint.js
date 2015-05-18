@@ -1,5 +1,8 @@
+import imgurMethod from '../ImgurMethod';
+
 const imgurEndpoint = {
-    path: ''
+    path: '',
+    imgurMethod: imgurMethod
 };
 
 export default imgurEndpoint;
