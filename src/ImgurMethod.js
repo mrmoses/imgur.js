@@ -1,10 +1,14 @@
 import utils from './utils.js';
 import request from 'superagent';
+import _ from 'lodash';
 
-const imgurMethod = function(options) {
-    if(!options.cb) { throw new Error('cb must be specified');}
-    request
-        .get([utils.API_URL, options.path].join('/'))
+var imgurMethod = function(options) {
+    _.forEach(['cb', 'method', 'apiUrl', 'path'], function(option) {
+        if(!options[option]) {
+            throw new Error(option + ' must be specified');
+        }
+    });
+    request[options.method]([options.apiUrl, options.path].join('/'))
         .set('Authorization', 'Client-ID ' + utils.CLIENT_ID)
         .end(options.cb);
 };

@@ -1,12 +1,16 @@
 import imgurEndpoint from '../ImgurEndpoint';
-import _ from 'lodash';
+import utils from '../utils';
 
-export default _.extend(imgurEndpoint, {
+export default imgurEndpoint({
     path: 'image',
+    apiUrl: [utils.API_URL, utils.API_VERSION].join('/'),
     get: function (hash, cb) {
-        return imgurEndpoint.imgurMethod({
+        return this.imgurMethod({
             path: [this.path, hash].join('/'),
-            cb: cb
+            cb: cb,
+            method: 'get',
+            apiUrl: this.apiUrl
         });
     }
 });
+

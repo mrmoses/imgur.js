@@ -1,5 +1,6 @@
 let utils = {
-    API_URL : 'https://api.imgur.com/3',
+    API_URL : 'https://api.imgur.com',
+    API_VERSION: '3',
     CLIENT_ID: ''
 };
 

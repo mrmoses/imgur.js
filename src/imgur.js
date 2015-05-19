@@ -1,13 +1,16 @@
 import ImgurEndpoint from './ImgurEndpoint';
 import ImgurMethod from './ImgurMethod';
 import imageEndpoint from './endpoints/image';
+import oauth2Endpoint from './endpoints/oauth2';
 import utils from './utils.js';
 import _ from 'lodash';
 
 
-let Imgur = function(clientKey) {
+var Imgur = function(clientKey) {
+    if(!clientKey) { throw new Error('Client Key required to initialize imgur client');}
     let endpoints = {
-        image : imageEndpoint
+        image : imageEndpoint,
+        oauth2: oauth2Endpoint
     };
 
     utils.CLIENT_ID = clientKey;

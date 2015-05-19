@@ -27,7 +27,13 @@ Building the Project
   - `npm run build` for built library files imgur.min.js and imgur.js
 
 Using the Project
---------------------
+-----------------
 
   - `var Imgur = require('imgur');`
   - `var imgurInstance = Imgur(<API CLIENT ID>);`
+
+Available Endpoints
+-------------------
+  - `imgurInstance.image.get(<image hash>, callback)`
+  - `imgurInstance.oauth2.get(<token type>, callback)`
+
