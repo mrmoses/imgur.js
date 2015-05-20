@@ -4,7 +4,7 @@ import utils from '../utils';
 export default imgurEndpoint({
     path: 'oauth2',
     apiUrl: utils.API_URL,
-    get: function (responseType, cb) {
+    get(responseType, cb) {
         const resType = (responseType || 'token');
         const queryString = '?' + [
             `response_type=${resType}`,
@@ -16,7 +16,7 @@ export default imgurEndpoint({
 
         return this.imgurMethod(options);
     },
-    refresh: function (refreshToken, clientSecret, cb) {
+    refresh(refreshToken, clientSecret, cb) {
         const queryString = '?' + [
             `refresh_token=${refreshToken}`,
             `client_id=${utils.CLIENT_ID}`,

@@ -6,7 +6,7 @@ import utils from './utils.js';
 import _ from 'lodash';
 
 
-let Imgur = function(clientKey) {
+let Imgur = clientKey => {
     if(!clientKey) { throw new Error('Client Key required to initialize imgur client');}
     let endpoints = {
         image : imageEndpoint,
