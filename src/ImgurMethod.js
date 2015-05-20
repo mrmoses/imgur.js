@@ -1,9 +1,9 @@
 import utils from './utils.js';
 import request from 'superagent';
-import _ from 'lodash';
 
-var imgurMethod = function(options) {
-    _.forEach(['cb', 'method', 'apiUrl', 'path'], function(option) {
+let imgurMethod = function(options) {
+    ['cb', 'method', 'apiUrl', 'path'].forEach(option => {
+
         if(!options[option]) {
             throw new Error(option + ' must be specified');
         }
