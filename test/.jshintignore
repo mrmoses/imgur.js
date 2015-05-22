@@ -1,2 +1,2 @@
-src/ImgurMethod.js
+src/imgurAPICall.js
 node_modules/**

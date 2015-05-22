@@ -1,5 +1,4 @@
-import ImgurEndpoint from './ImgurEndpoint';
-import ImgurMethod from './ImgurMethod';
+import imgurAPICall from './imgurAPICall';
 import imageEndpoint from './endpoints/image';
 import oauth2Endpoint from './endpoints/oauth2';
 import utils from './utils.js';
@@ -16,8 +15,7 @@ let Imgur = clientKey => {
     utils.CLIENT_ID = clientKey;
 
     let imgur = {
-        ImgurEndpoint : ImgurEndpoint,
-        ImgurMethod : ImgurMethod
+        imgurAPICall : imgurAPICall
     };
 
     imgur.CLIENT_ID = clientKey;

@@ -1,7 +1,7 @@
 import utils from './utils.js';
 import request from 'superagent-bluebird-promise';
 
-let imgurMethod = function(options) {
+let imgurAPICall = function(options) {
     ['method', 'apiUrl', 'path'].forEach(option => {
 
         if(!options[option]) {
@@ -13,4 +13,4 @@ let imgurMethod = function(options) {
         .promise();
 };
 
-export default imgurMethod;
+export default imgurAPICall;

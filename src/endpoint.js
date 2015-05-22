@@ -1,11 +1,11 @@
-import imgurMethod from '../ImgurMethod';
+import imgurAPICall from '../imgurAPICall';
 import utils from './utils.js';
 import _ from 'lodash';
 
-let imgurEndpoint = options => {
-    options.imgurMethod = _.bind(imgurMethod, options);
+let endpoint = options => {
+    options.imgurAPICall = _.bind(imgurAPICall, options);
     options.apiUrl = options.apiUrl || [utils.API_URL, utils.API_VERSION].join('/');
     return options;
 };
 
-export default imgurEndpoint;
+export default endpoint;

@@ -1,7 +1,7 @@
-import imgurEndpoint from '../ImgurEndpoint';
+import endpoint from '../endpoint';
 import utils from '../utils';
 
-export default imgurEndpoint({
+export default endpoint({
     path: 'oauth2',
     apiUrl: utils.API_URL,
     get(responseType) {
@@ -14,7 +14,7 @@ export default imgurEndpoint({
         const path = [this.path, 'authorize'].join('/') + queryString;
         const options = utils.buildOptions(this.apiUrl, path, 'get');
 
-        return this.imgurMethod(options);
+        return this.imgurAPICall(options);
     },
     refresh(refreshToken, clientSecret) {
         const queryString = '?' + [
@@ -27,6 +27,6 @@ export default imgurEndpoint({
         const path = [this.path, 'token'].join('/') + queryString;
         const options = utils.buildOptions(this.apiUrl, path, 'post');
 
-        return this.imgurMethod(options);
+        return this.imgurAPICall(options);
     }
 });

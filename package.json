@@ -16,7 +16,7 @@
     "url": "git://github.com/imgur/imgur.js.git"
   },
   "bugs:": "https://github.com/imgur/imgur.js/issues",
-  "main": "lib/imgur.js",
+  "main": "build/imgur.js",
   "browserify": {
     "transform": [
       [

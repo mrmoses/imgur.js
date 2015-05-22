@@ -1,12 +1,12 @@
-import imgurEndpoint from '../ImgurEndpoint';
+import endpoint from '../endpoint';
 import utils from '../utils';
 
-export default imgurEndpoint({
+export default endpoint({
     path: 'image',
     apiUrl: [utils.API_URL, utils.API_VERSION].join('/'),
     get(hash) {
         const options = utils.buildOptions(this.apiUrl, [this.path, hash].join('/'), 'get');
-        return this.imgurMethod(options);
+        return this.imgurAPICall(options);
     }
 });
 
