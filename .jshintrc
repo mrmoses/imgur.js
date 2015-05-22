@@ -64,6 +64,8 @@
     "beforeEach": true,
     "afterEach": true,
     "it": true,
-    "expect": true
+    "expect": true,
+    "async": true,
+    "await": true
   }
 }

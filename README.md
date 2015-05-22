@@ -34,6 +34,7 @@ Using the Project
 
 Available Endpoints
 -------------------
-  - `imgurInstance.image.get(<image hash>, callback)`
-  - `imgurInstance.oauth2.get(<token type>, callback)`
+All functions return a [Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)
+  - `imgurInstance.image.get(<image hash>)`
+  - `imgurInstance.oauth2.get(<token type>)`
 

@@ -1,16 +1,20 @@
 import Imgur from '../../lib/imgur';
+import request from 'superagent-bluebird-promise';
 let imgur = Imgur('testKey');
+
 
 describe('Image Endpoint', () => {
     describe('GET', () => {
         let hash = 'ep6zWD9';
-        let cbSpy;
+        let promise;
 
-        describe('GET function', () => {
+        describe('synchronous GET function', () => {
             beforeEach(() => {
-                cbSpy = spy();
-                spy(imgur.image, 'get');
-                imgur.image.get(hash, cbSpy);
+                stub(imgur.image, 'get');
+                promise = imgur.image.get(hash);
+            });
+            afterEach(() => {
+                imgur.image.get.restore();
             });
 
             it('should have been run once', () => {
@@ -23,11 +27,13 @@ describe('Image Endpoint', () => {
 
         });
 
-        describe('GET function call to imgurMethod', () => {
+        describe('synchronous GET function call to imgurMethod', () => {
             beforeEach(() => {
-                cbSpy = spy();
-                spy(imgur.image, 'imgurMethod');
-                imgur.image.get(hash, cbSpy);
+                stub(imgur.image, 'imgurMethod');
+                promise = imgur.image.get(hash);
+            });
+            afterEach(() => {
+                imgur.image.imgurMethod.restore();
             });
 
 
@@ -38,7 +44,6 @@ describe('Image Endpoint', () => {
             it('should call imgurMethod', () => {
                 expect(imgur.image.imgurMethod).to.have.been.calledWith({
                     apiUrl: "https://api.imgur.com/3",
-                    cb: cbSpy,
                     path: 'image/' + hash,
                     method: "get"
                 });
