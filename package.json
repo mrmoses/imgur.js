@@ -79,5 +79,8 @@
   },
   "pre-commit": [
     "test"
-  ]
+  ],
+  "dependencies": {
+    "superagent-bluebird-promise": "^2.0.2"
+  }
 }

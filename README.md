@@ -35,6 +35,10 @@ Using the Project
 Available Endpoints
 -------------------
 All functions return a [Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)
-  - `imgurInstance.image.get(<image hash>)`
-  - `imgurInstance.oauth2.get(<token type>)`
+  - `imgurInstance.image.get(imageHash)`
+  - `imgurInstance.oauth2.get(tokenType)`
+  - `imgurInstance.oauth2.refresh(tokenType, clientSecret)`
+  - `imgurInstance.topics.get(topicId, topicSort, page)`
+
+
 

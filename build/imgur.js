@@ -16,11 +16,11 @@
 
     var _imgurAPICall__imgurAPICall = function _imgurAPICall__imgurAPICall(options) {
         ['method', 'apiUrl', 'path'].forEach(function (option) {
-
             if (!options[option]) {
                 throw new Error(option + ' must be specified');
             }
         });
+
         return request[options.method]([options.apiUrl, options.path].join('/')).set('Authorization', 'Client-ID ' + utils_js.CLIENT_ID).promise();
     };
 
@@ -65,13 +65,27 @@
         }
     });
 
+    var topicsEndpoint = _endpoint({
+        path: 'topics',
+        apiUrl: [utils_js.API_URL, utils_js.API_VERSION].join('/'),
+        get: function get(topicId) {
+            var sort = arguments[1] === undefined ? 'viral' : arguments[1];
+            var page = arguments[2] === undefined ? 0 : arguments[2];
+
+            var requestPath = [this.path, topicId, sort, page].join('/');
+            var options = utils_js.buildOptions(this.apiUrl, requestPath, 'get');
+            return this.imgurAPICall(options);
+        }
+    });
+
     var _imgur__Imgur = function _imgur__Imgur(clientKey) {
         if (!clientKey) {
             throw new Error('Client Key required to initialize imgur client');
         }
         var endpoints = {
             image: imageEndpoint,
-            oauth2: oauth2Endpoint
+            oauth2: oauth2Endpoint,
+            topics: topicsEndpoint
         };
 
         utils_js.CLIENT_ID = clientKey;
