@@ -20,8 +20,9 @@
                 throw new Error(option + ' must be specified');
             }
         });
-
-        return request[options.method]([options.apiUrl, options.path].join('/')).set('Authorization', 'Client-ID ' + utils_js.CLIENT_ID).promise();
+        var body = options.body || {};
+        var authToken = 'Client-ID ' + utils_js.CLIENT_ID;
+        return request[options.method]([options.apiUrl, options.path].join('/')).send(body).set('Authorization', authToken).promise();
     };
 
     var _imgurAPICall = _imgurAPICall__imgurAPICall;
@@ -55,6 +56,22 @@
 
             return this.imgurAPICall(options);
         },
+        authenticate: function authenticate(username, password) {
+            if (!username || !password) {
+                throw new Error('Username and password required authenticate');
+            }
+            var path = 'generatetoken';
+            var options = _.extend(utils_js.buildOptions(this.apiUrl, path, 'post'), {
+                body: {
+                    username: username,
+                    password: password,
+                    'grant_type': 'password',
+                    'response_type': 'token'
+                }
+            });
+
+            return this.imgurAPICall(options);
+        },
         refresh: function refresh(refreshToken, clientSecret) {
             var queryString = '?' + ['refresh_token=' + refreshToken, 'client_id=' + utils_js.CLIENT_ID, 'client_secret=' + clientSecret, 'grant_type=refresh_token'].join('&');
 
@@ -62,8 +79,7 @@
             var options = utils_js.buildOptions(this.apiUrl, path, 'post');
 
             return this.imgurAPICall(options);
-        }
-    });
+        } });
 
     var topicsEndpoint = _endpoint({
         path: 'topics',

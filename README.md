@@ -23,6 +23,7 @@ Building the Project
 --------------------
 
   - `npm install`
+  - `npm install -g gulp`
   - `npm run test` to run tests
   - `npm run build` for built library files imgur.min.js and imgur.js
 

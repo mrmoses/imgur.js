@@ -65,7 +65,7 @@
     "run-sequence": "^1.0.2",
     "sinon": "^1.12.2",
     "sinon-chai": "^2.7.0",
-    "superagent": "^1.2.0",
+    "superagent-bluebird-promise": "^2.0.2",
     "vinyl-source-stream": "^1.0.0"
   },
   "babelOptions": {
@@ -79,8 +79,5 @@
   },
   "pre-commit": [
     "test"
-  ],
-  "dependencies": {
-    "superagent-bluebird-promise": "^2.0.2"
-  }
+  ]
 }

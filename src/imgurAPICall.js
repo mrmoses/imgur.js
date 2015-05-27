@@ -7,9 +7,11 @@ let imgurAPICall = function(options) {
             throw new Error(option + ' must be specified');
         }
     });
-
+    let body = options.body || {};
+    const authToken = 'Client-ID ' + utils.CLIENT_ID;
     return request[options.method]([options.apiUrl, options.path].join('/'))
-        .set('Authorization', 'Client-ID ' + utils.CLIENT_ID)
+        .send(body)
+        .set('Authorization', authToken)
         .promise();
 };
 
