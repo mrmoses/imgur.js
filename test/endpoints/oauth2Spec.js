@@ -1,5 +1,5 @@
 import Imgur from '../../build/imgur';
-let imgur = Imgur('testKey');
+const imgur = Imgur('testKey');
 
 describe('oauth2 Endpoint', () => {
     describe('.get', () => {

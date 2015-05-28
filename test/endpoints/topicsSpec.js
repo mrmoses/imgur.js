@@ -1,12 +1,12 @@
 import Imgur from '../../build/imgur';
 import request from 'superagent-bluebird-promise';
-let imgur = Imgur('testKey');
+const imgur = Imgur('testKey');
 
 describe('Topics Endpoint', () => {
     describe('GET', () => {
-        let page = 0;
-        let topicId = 2;
-        let sort = 'hot';
+        const page = 0;
+        const topicId = 2;
+        const sort = 'hot';
         let promise;
 
         describe('synchronous GET function', () => {
