@@ -4,7 +4,8 @@ let utils = {
     CLIENT_ID: '',
     buildOptions: function(apiUrl, path, method) {
         return { apiUrl, path, method };
-    }
+    },
+    bearer: ''
 };
 
 export default utils;

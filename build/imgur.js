@@ -1,6 +1,6 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('lodash'), require('superagent-bluebird-promise')) : typeof define === 'function' && define.amd ? define(['lodash', 'superagent-bluebird-promise'], factory) : global.imgur = factory(global._, global.request);
-})(this, function (_, request) {
+    typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('superagent-bluebird-promise'), require('lodash')) : typeof define === 'function' && define.amd ? define(['superagent-bluebird-promise', 'lodash'], factory) : global.imgur = factory(global.request, global._);
+})(this, function (request, _) {
     'use strict';
 
     var utils_js__utils = {
@@ -9,7 +9,8 @@
         CLIENT_ID: '',
         buildOptions: function buildOptions(apiUrl, path, method) {
             return { apiUrl: apiUrl, path: path, method: method };
-        }
+        },
+        bearer: ''
     };
 
     var utils_js = utils_js__utils;
@@ -20,9 +21,11 @@
                 throw new Error(option + ' must be specified');
             }
         });
-        var body = options.body || {};
-        if (options.bearer) {}
         var authToken = 'Client-ID ' + utils_js.CLIENT_ID;
+        var body = options.body || {};
+        if (utils_js.BEARER) {
+            authToken = 'Bearer ' + utils_js.BEARER;
+        }
         return request[options.method]([options.apiUrl, options.path].join('/')).send(body).set('Authorization', authToken).promise();
     };
 
@@ -79,33 +82,33 @@
         }
     });
 
-    var _imgur__Imgur = function _imgur__Imgur(clientKey) {
+    var imgur__Imgur = function imgur__Imgur(clientKey) {
+        var setUtil = function setUtil(key, value) {
+            utils_js[key] = value;
+        };
+
+        var getUtil = function getUtil(key) {
+            return utils_js[key];
+        };
+
         if (!clientKey) {
             throw new Error('Client Key required to initialize imgur client');
         }
-        var endpoints = {
+
+        setUtil('CLIENT_ID', clientKey);
+
+        return {
             image: imageEndpoint,
             oauth2: oauth2Endpoint,
-            topics: topicsEndpoint
+            topics: topicsEndpoint,
+            imgurAPICall: _imgurAPICall,
+            setUtil: setUtil,
+            getUtil: getUtil
         };
-
-        utils_js.CLIENT_ID = clientKey;
-
-        var imgur = {
-            imgurAPICall: _imgurAPICall
-        };
-
-        imgur.CLIENT_ID = clientKey;
-
-        _.forEach(endpoints, function (value, key) {
-            imgur[key] = value;
-        });
-
-        return imgur;
     };
 
-    var _imgur = _imgur__Imgur;
+    var imgur = imgur__Imgur;
 
-    return _imgur;
+    return imgur;
 });
 //# sourceMappingURL=./imgur.js.map
