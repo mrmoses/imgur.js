@@ -46,57 +46,6 @@ describe('oauth2 Endpoint', () => {
             });
         });
     });
-    describe('.authenticate', () => {
-        let promise;
-        const username = 'testname';
-        const password = 'testpass';
-
-        describe('auth function', () => {
-            beforeEach(() => {
-                stub(imgur.oauth2, 'authenticate');
-                promise = imgur.oauth2.authenticate(username, password);
-            });
-            afterEach(() => {
-                imgur.oauth2.authenticate.restore();
-            });
-
-            it('should have been run once', () => {
-                expect(imgur.oauth2.authenticate).to.have.been.calledOnce;
-            });
-
-            it('should have been run with a hash', () => {
-                expect(imgur.oauth2.authenticate).to.have.been.calledWith(username, password);
-            });
-        });
-
-        describe('authenticate function call to imgurAPICall', () => {
-            beforeEach(() => {
-                stub(imgur.oauth2, 'imgurAPICall');
-                imgur.oauth2.authenticate(username, password);
-            });
-            afterEach(() => {
-                imgur.oauth2.imgurAPICall.restore();
-            });
-
-            it('should call imgurAPICall', () => {
-                expect(imgur.oauth2.imgurAPICall).to.have.been.calledOnce;
-            });
-
-            it('should call imgurAPICall', () => {
-                expect(imgur.oauth2.imgurAPICall).to.have.been.calledWith({
-                    apiUrl: 'https://api.imgur.com',
-                    path: 'generatetoken',
-                    method: 'post',
-                    body: {
-                        username,
-                        password,
-                        'grant_type': 'password',
-                        'response_type': 'token'
-                    }
-                });
-            });
-        });
-    });
     describe('.refresh', () => {
         let promise;
         const refreshToken = 'testRefreshToken';

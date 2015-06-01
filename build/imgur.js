@@ -21,6 +21,7 @@
             }
         });
         var body = options.body || {};
+        if (options.bearer) {}
         var authToken = 'Client-ID ' + utils_js.CLIENT_ID;
         return request[options.method]([options.apiUrl, options.path].join('/')).send(body).set('Authorization', authToken).promise();
     };
@@ -53,22 +54,6 @@
 
             var path = [this.path, 'authorize'].join('/') + queryString;
             var options = utils_js.buildOptions(this.apiUrl, path, 'get');
-
-            return this.imgurAPICall(options);
-        },
-        authenticate: function authenticate(username, password) {
-            if (!username || !password) {
-                throw new Error('Username and password required authenticate');
-            }
-            var path = 'generatetoken';
-            var options = _.extend(utils_js.buildOptions(this.apiUrl, path, 'post'), {
-                body: {
-                    username: username,
-                    password: password,
-                    'grant_type': 'password',
-                    'response_type': 'token'
-                }
-            });
 
             return this.imgurAPICall(options);
         },

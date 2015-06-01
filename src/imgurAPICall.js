@@ -8,6 +8,9 @@ let imgurAPICall = function(options) {
         }
     });
     let body = options.body || {};
+    if(options.bearer) {
+
+    }
     const authToken = 'Client-ID ' + utils.CLIENT_ID;
     return request[options.method]([options.apiUrl, options.path].join('/'))
         .send(body)

@@ -1,6 +1,5 @@
 import endpoint from '../endpoint';
 import utils from '../utils';
-import _ from 'lodash';
 
 export default endpoint({
     path: 'oauth2',
@@ -14,22 +13,6 @@ export default endpoint({
 
         const path = [this.path, 'authorize'].join('/') + queryString;
         const options = utils.buildOptions(this.apiUrl, path, 'get');
-
-        return this.imgurAPICall(options);
-    },
-    authenticate(username, password) {
-        if(!username || !password) {
-            throw new Error('Username and password required authenticate');
-        }
-        const path = 'generatetoken';
-        const options = _.extend(utils.buildOptions(this.apiUrl, path, 'post'), {
-            body: {
-                username,
-                password,
-                'grant_type': 'password',
-                'response_type': 'token'
-            }
-        });
 
         return this.imgurAPICall(options);
     },
