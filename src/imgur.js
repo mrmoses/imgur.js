@@ -4,8 +4,7 @@ import oauth2Endpoint from './endpoints/oauth2';
 import topicsEndpoint from './endpoints/topics';
 import utils from './utils.js';
 
-
-let Imgur = clientKey => {
+export default function(clientKey) {
     let setUtil = function(key, value) {
         utils[key] = value;
     };
@@ -14,19 +13,20 @@ let Imgur = clientKey => {
         return utils[key];
     };
 
-    if(!clientKey) { throw new Error('Client Key required to initialize imgur client');}
+    if (!clientKey) {
+        throw new Error('Client Key required to initialize imgur client');
+    }
 
     setUtil('CLIENT_ID', clientKey);
 
     return {
-        image : imageEndpoint,
+        imgurAPICall,
+        CLIENT_ID: clientKey,
+        image: imageEndpoint,
         oauth2: oauth2Endpoint,
         topics: topicsEndpoint,
-        imgurAPICall : imgurAPICall,
         setUtil,
         getUtil
     };
+}
 
-};
-
-export default Imgur;

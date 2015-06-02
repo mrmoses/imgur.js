@@ -1,11 +1,10 @@
-let utils = {
-    API_URL : 'https://api.imgur.com',
+export default {
+    API_URL: 'https://api.imgur.com',
     API_VERSION: '3',
     CLIENT_ID: '',
-    buildOptions: function(apiUrl, path, method) {
+    buildOptions: (apiUrl, path, method) => {
         return { apiUrl, path, method };
     },
     bearer: ''
 };
 
-export default utils;

@@ -3,7 +3,7 @@
 })(this, function (request, _) {
     'use strict';
 
-    var utils_js__utils = {
+    var utils = {
         API_URL: 'https://api.imgur.com',
         API_VERSION: '3',
         CLIENT_ID: '',
@@ -13,82 +13,83 @@
         bearer: ''
     };
 
-    var utils_js = utils_js__utils;
-
-    var _imgurAPICall__imgurAPICall = function _imgurAPICall__imgurAPICall(options) {
+    var imgurAPICall = function imgurAPICall(options) {
         ['method', 'apiUrl', 'path'].forEach(function (option) {
             if (!options[option]) {
-                throw new Error(option + ' must be specified');
+                throw new Error('' + option + ' must be specified');
             }
         });
-        var authToken = 'Client-ID ' + utils_js.CLIENT_ID;
+
+        var authToken = 'Client-ID ' + utils.CLIENT_ID;
         var body = options.body || {};
-        if (utils_js.BEARER) {
-            authToken = 'Bearer ' + utils_js.BEARER;
+
+        if (utils.BEARER) {
+            authToken = 'Bearer ' + utils.BEARER;
         }
-        return request[options.method]([options.apiUrl, options.path].join('/')).send(body).set('Authorization', authToken).promise();
+
+        return request[options.method]('' + options.apiUrl + '/' + options.path).send(body).set('Authorization', authToken).promise();
     };
 
-    var _imgurAPICall = _imgurAPICall__imgurAPICall;
+    var endpoint = function endpoint(options) {
+        options.imgurAPICall = _.bind(imgurAPICall, options);
+        options.apiUrl = options.apiUrl || '' + utils.API_URL + '/' + utils.API_VERSION;
 
-    var _endpoint__endpoint = function _endpoint__endpoint(options) {
-        options.imgurAPICall = _.bind(_imgurAPICall, options);
-        options.apiUrl = options.apiUrl || [utils_js.API_URL, utils_js.API_VERSION].join('/');
         return options;
     };
 
-    var _endpoint = _endpoint__endpoint;
-
-    var imageEndpoint = _endpoint({
+    var imageEndpoint = endpoint({
         path: 'image',
-        apiUrl: [utils_js.API_URL, utils_js.API_VERSION].join('/'),
+        apiUrl: '' + utils.API_URL + '/' + utils.API_VERSION,
         get: function get(hash) {
-            var options = utils_js.buildOptions(this.apiUrl, [this.path, hash].join('/'), 'get');
+            var options = utils.buildOptions(this.apiUrl, '' + this.path + '/' + hash, 'get');
+
             return this.imgurAPICall(options);
         }
     });
 
-    var oauth2Endpoint = _endpoint({
+    var oauth2Endpoint = endpoint({
         path: 'oauth2',
-        apiUrl: utils_js.API_URL,
+        apiUrl: utils.API_URL,
         get: function get(responseType) {
             var resType = responseType || 'token';
-            var queryString = '?' + ['response_type=' + resType, 'client_id=' + utils_js.CLIENT_ID].join('&');
+            var queryString = '?' + ['response_type=' + resType, 'client_id=' + utils.CLIENT_ID].join('&');
 
-            var path = [this.path, 'authorize'].join('/') + queryString;
-            var options = utils_js.buildOptions(this.apiUrl, path, 'get');
+            var path = '' + this.path + '/authorize' + queryString;
+            var options = utils.buildOptions(this.apiUrl, path, 'get');
 
             return this.imgurAPICall(options);
         },
         refresh: function refresh(refreshToken, clientSecret) {
-            var queryString = '?' + ['refresh_token=' + refreshToken, 'client_id=' + utils_js.CLIENT_ID, 'client_secret=' + clientSecret, 'grant_type=refresh_token'].join('&');
+            var queryString = '?' + ['refresh_token=' + refreshToken, 'client_id=' + utils.CLIENT_ID, 'client_secret=' + clientSecret, 'grant_type=refresh_token'].join('&');
 
-            var path = [this.path, 'token'].join('/') + queryString;
-            var options = utils_js.buildOptions(this.apiUrl, path, 'post');
+            var path = '' + this.path + '/token' + queryString;
+            var options = utils.buildOptions(this.apiUrl, path, 'post');
 
-            return this.imgurAPICall(options);
-        } });
-
-    var topicsEndpoint = _endpoint({
-        path: 'topics',
-        apiUrl: [utils_js.API_URL, utils_js.API_VERSION].join('/'),
-        get: function get(topicId) {
-            var sort = arguments[1] === undefined ? 'viral' : arguments[1];
-            var page = arguments[2] === undefined ? 0 : arguments[2];
-
-            var requestPath = [this.path, topicId, sort, page].join('/');
-            var options = utils_js.buildOptions(this.apiUrl, requestPath, 'get');
             return this.imgurAPICall(options);
         }
     });
 
-    var imgur__Imgur = function imgur__Imgur(clientKey) {
+    var topicsEndpoint = endpoint({
+        path: 'topics',
+        apiUrl: '' + utils.API_URL + '/' + utils.API_VERSION,
+        get: function get(topicId) {
+            var sort = arguments[1] === undefined ? 'viral' : arguments[1];
+            var page = arguments[2] === undefined ? 0 : arguments[2];
+
+            var requestPath = '' + this.path + '/' + topicId + '/' + sort + '/' + page;
+            var options = utils.buildOptions(this.apiUrl, requestPath, 'get');
+
+            return this.imgurAPICall(options);
+        }
+    });
+
+    var imgur = function imgur(clientKey) {
         var setUtil = function setUtil(key, value) {
-            utils_js[key] = value;
+            utils[key] = value;
         };
 
         var getUtil = function getUtil(key) {
-            return utils_js[key];
+            return utils[key];
         };
 
         if (!clientKey) {
@@ -98,16 +99,15 @@
         setUtil('CLIENT_ID', clientKey);
 
         return {
+            imgurAPICall: imgurAPICall,
+            CLIENT_ID: clientKey,
             image: imageEndpoint,
             oauth2: oauth2Endpoint,
             topics: topicsEndpoint,
-            imgurAPICall: _imgurAPICall,
             setUtil: setUtil,
             getUtil: getUtil
         };
     };
-
-    var imgur = imgur__Imgur;
 
     return imgur;
 });
