@@ -34,6 +34,9 @@
     "coverage": "gulp coverage"
   },
   "license": "ISC",
+  "dependencies": {
+    "superagent-bluebird-promise": "^2.0.2"
+    },
   "devDependencies": {
     "babel": "^5.0.0",
     "babel-core": "^5.2.17",
@@ -66,7 +69,6 @@
     "run-sequence": "^1.0.2",
     "sinon": "^1.12.2",
     "sinon-chai": "^2.7.0",
-    "superagent-bluebird-promise": "^2.0.2",
     "vinyl-source-stream": "^1.0.0"
   },
   "babelOptions": {
