@@ -54,7 +54,7 @@ describe('Topics Endpoint', () => {
     describe('getDefauts', () => {
         let promise;
 
-        describe('synchronous getDefaults function', () => {
+        describe('synchronous GET function', () => {
             beforeEach(() => {
                 stub(imgur.topics, 'getDefaults');
                 promise = imgur.topics.getDefaults();
@@ -68,7 +68,7 @@ describe('Topics Endpoint', () => {
             });
         });
 
-        describe('synchronous getDefaults function call to imgurAPICall', () => {
+        describe('synchronous GET function call to imgurAPICall', () => {
             beforeEach(() => {
                 stub(imgur.topics, 'imgurAPICall');
                 promise = imgur.topics.getDefaults();
