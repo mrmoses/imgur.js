@@ -9,5 +9,11 @@ export default endpoint({
         const options = utils.buildOptions(this.apiUrl, requestPath, 'get');
 
         return this.imgurAPICall(options);
+    },
+    getDefaults() {
+        const requestPath = `${this.path}/defaults`;
+        const options = utils.buildOptions(this.apiUrl, requestPath, 'get');
+
+        return this.imgurAPICall(options);
     }
 });
