@@ -51,4 +51,44 @@ describe('Topics Endpoint', () => {
             });
         });
     });
+    describe('getDefauts', () => {
+        let promise;
+
+        describe('synchronous GET function', () => {
+            beforeEach(() => {
+                stub(imgur.topics, 'getDefaults');
+                promise = imgur.topics.getDefaults();
+            });
+            afterEach(() => {
+                imgur.topics.getDefaults.restore();
+            });
+
+            it('should have been run once', () => {
+                expect(imgur.topics.getDefaults).to.have.been.calledOnce;
+            });
+        });
+
+        describe('synchronous GET function call to imgurAPICall', () => {
+            beforeEach(() => {
+                stub(imgur.topics, 'imgurAPICall');
+                promise = imgur.topics.getDefaults();
+            });
+            afterEach(() => {
+                imgur.topics.imgurAPICall.restore();
+            });
+
+
+            it('should call imgurAPICall', () => {
+                expect(imgur.topics.imgurAPICall).to.have.been.calledOnce;
+            });
+
+            it('should call imgurAPICall', () => {
+                expect(imgur.topics.imgurAPICall).to.have.been.calledWith({
+                    apiUrl: "https://api.imgur.com/3",
+                    path: 'topics/defaults',
+                    method: "get"
+                });
+            });
+        });
+    });
 });
