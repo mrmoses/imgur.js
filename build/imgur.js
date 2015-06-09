@@ -80,6 +80,12 @@
             var options = utils.buildOptions(this.apiUrl, requestPath, 'get');
 
             return this.imgurAPICall(options);
+        },
+        getDefaults: function getDefaults() {
+            var requestPath = '' + this.path + '/defaults';
+            var options = utils.buildOptions(this.apiUrl, requestPath, 'get');
+
+            return this.imgurAPICall(options);
         }
     });
 
