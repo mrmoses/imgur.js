@@ -1,6 +1,5 @@
 import endpoint from '../endpoint';
 import utils from '../utils';
-import galleryCommentsEndpoint from '../endpoints/gallery/comments';
 import galleryPostEndpoint from '../endpoints/gallery/post';
 
 export default endpoint({
@@ -12,6 +11,5 @@ export default endpoint({
 
         return this.imgurAPICall(options);
     },
-    comments: galleryCommentsEndpoint,
     post: galleryPostEndpoint
 });

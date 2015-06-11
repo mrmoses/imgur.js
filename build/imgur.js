@@ -89,29 +89,29 @@
         }
     });
 
-    var galleryCommentsEndpoint = endpoint({
+    var postOptions = {
         path: 'gallery',
-        apiUrl: '' + utils.API_URL + '/' + utils.API_VERSION,
-        get: function get(hash) {
-            var sort = arguments[1] === undefined ? 'best' : arguments[1];
+        apiUrl: '' + utils.API_URL + '/' + utils.API_VERSION
+    };
 
-            var path = '' + this.path + '/' + hash + '/comments/' + sort;
-            var options = utils.buildOptions(this.apiUrl, path, 'get');
-
-            return this.imgurAPICall(options);
-        }
-    });
-
-    var galleryPostEndpoint = endpoint({
-        path: 'gallery',
-        apiUrl: '' + utils.API_URL + '/' + utils.API_VERSION,
+    var galleryPostEndpoint = endpoint(_.extend({}, postOptions, {
         get: function get(hash) {
             var path = '' + this.path + '/' + hash;
             var options = utils.buildOptions(this.apiUrl, path, 'get');
 
             return this.imgurAPICall(options);
-        }
-    });
+        },
+        comments: endpoint(_.extend({}, postOptions, {
+            get: function get(hash) {
+                var sort = arguments[1] === undefined ? 'best' : arguments[1];
+
+                var path = '' + this.path + '/' + hash + '/comments/' + sort;
+                var options = utils.buildOptions(this.apiUrl, path, 'get');
+
+                return this.imgurAPICall(options);
+            }
+        }))
+    }));
 
     var galleryEndpoint = endpoint({
         path: 'gallery',
@@ -127,7 +127,6 @@
 
             return this.imgurAPICall(options);
         },
-        comments: galleryCommentsEndpoint,
         post: galleryPostEndpoint
     });
 

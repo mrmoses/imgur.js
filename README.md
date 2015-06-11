@@ -40,6 +40,9 @@ All functions return a [Promise](https://developer.mozilla.org/en-US/docs/Web/Ja
   - `imgurInstance.oauth2.get(tokenType)`
   - `imgurInstance.oauth2.refresh(tokenType, clientSecret)`
   - `imgurInstance.topics.get(topicId, topicSort, page)`
+  - `imgurInstance.gallery.get(section, sort, page, showViral)`
+  - `imgurInstance.gallery.post.get(postId)`
+  - `imgurInstance.gallery.post.comments.get(postId, sort)`
 
 
 

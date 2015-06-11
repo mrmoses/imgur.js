@@ -1,13 +1,25 @@
 import endpoint from '../../endpoint';
 import utils from '../../utils';
+import _ from 'lodash';
 
-export default endpoint({
+const postOptions = {
     path: 'gallery',
-    apiUrl: `${utils.API_URL}/${utils.API_VERSION}`,
+    apiUrl: `${utils.API_URL}/${utils.API_VERSION}`
+};
+
+export default endpoint(_.extend({}, postOptions, {
     get(hash) {
         const path = `${this.path}/${hash}`;
         const options = utils.buildOptions(this.apiUrl, path, 'get');
 
         return this.imgurAPICall(options);
-    }
-});
+    },
+    comments: endpoint(_.extend({}, postOptions, {
+        get(hash, sort='best') {
+            const path = `${this.path}/${hash}/comments/${sort}`;
+            const options = utils.buildOptions(this.apiUrl, path, 'get');
+
+            return this.imgurAPICall(options);
+        }
+    }))
+}));
