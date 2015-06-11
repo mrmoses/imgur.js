@@ -89,6 +89,48 @@
         }
     });
 
+    var galleryCommentsEndpoint = endpoint({
+        path: 'gallery',
+        apiUrl: '' + utils.API_URL + '/' + utils.API_VERSION,
+        get: function get(hash) {
+            var sort = arguments[1] === undefined ? 'best' : arguments[1];
+
+            var path = '' + this.path + '/' + hash + '/comments/' + sort;
+            var options = utils.buildOptions(this.apiUrl, path, 'get');
+
+            return this.imgurAPICall(options);
+        }
+    });
+
+    var galleryPostEndpoint = endpoint({
+        path: 'gallery',
+        apiUrl: '' + utils.API_URL + '/' + utils.API_VERSION,
+        get: function get(hash) {
+            var path = '' + this.path + '/' + hash;
+            var options = utils.buildOptions(this.apiUrl, path, 'get');
+
+            return this.imgurAPICall(options);
+        }
+    });
+
+    var galleryEndpoint = endpoint({
+        path: 'gallery',
+        apiUrl: '' + utils.API_URL + '/' + utils.API_VERSION,
+        get: function get() {
+            var section = arguments[0] === undefined ? 'hot' : arguments[0];
+            var sort = arguments[1] === undefined ? 'viral' : arguments[1];
+            var page = arguments[2] === undefined ? 0 : arguments[2];
+            var showViral = arguments[3] === undefined ? true : arguments[3];
+
+            var requestPath = '' + this.path + '/' + section + '/' + sort + '/' + page + '?showViral=' + showViral;
+            var options = utils.buildOptions(this.apiUrl, requestPath, 'get');
+
+            return this.imgurAPICall(options);
+        },
+        comments: galleryCommentsEndpoint,
+        post: galleryPostEndpoint
+    });
+
     var imgur = function imgur(clientKey) {
         var setUtil = function setUtil(key, value) {
             utils[key] = value;
@@ -110,6 +152,7 @@
             image: imageEndpoint,
             oauth2: oauth2Endpoint,
             topics: topicsEndpoint,
+            gallery: galleryEndpoint,
             setUtil: setUtil,
             getUtil: getUtil
         };
