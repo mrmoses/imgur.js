@@ -101,6 +101,12 @@
 
             return this.imgurAPICall(options);
         },
+        report: function report(hash) {
+            var path = '' + this.path + '/' + hash + '/report';
+            var options = utils.buildOptions(this.apiUrl, path, 'post');
+
+            return this.imgurAPICall(options);
+        },
         comments: endpoint(_.extend({}, postOptions, {
             get: function get(hash) {
                 var sort = arguments[1] === undefined ? 'best' : arguments[1];
