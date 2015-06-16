@@ -3,6 +3,7 @@ import imageEndpoint from './endpoints/image';
 import oauth2Endpoint from './endpoints/oauth2';
 import topicsEndpoint from './endpoints/topics';
 import galleryEndpoint from './endpoints/gallery';
+import commentEndpoint from './endpoints/comment';
 import utils from './utils.js';
 
 export default function(clientKey) {
@@ -27,6 +28,7 @@ export default function(clientKey) {
         oauth2: oauth2Endpoint,
         topics: topicsEndpoint,
         gallery: galleryEndpoint,
+        comment: commentEndpoint,
         setUtil,
         getUtil
     };

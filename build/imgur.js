@@ -101,6 +101,12 @@
 
             return this.imgurAPICall(options);
         },
+        report: function report(hash) {
+            var path = '' + this.path + '/' + hash + '/report';
+            var options = utils.buildOptions(this.apiUrl, path, 'post');
+
+            return this.imgurAPICall(options);
+        },
         comments: endpoint(_.extend({}, postOptions, {
             get: function get(hash) {
                 var sort = arguments[1] === undefined ? 'best' : arguments[1];
@@ -130,6 +136,35 @@
         post: galleryPostEndpoint
     });
 
+    var commentEndpoint = endpoint({
+        path: 'comment',
+        apiUrl: '' + utils.API_URL + '/' + utils.API_VERSION,
+        downvote: function downvote(commentId) {
+            var path = '' + this.path + '/' + commentId + '/vote/down';
+            var options = utils.buildOptions(this.apiUrl, path, 'post');
+
+            return this.imgurAPICall(options);
+        },
+        upvote: function upvote(commentId) {
+            var path = '' + this.path + '/' + commentId + '/vote/up';
+            var options = utils.buildOptions(this.apiUrl, path, 'post');
+
+            return this.imgurAPICall(options);
+        },
+        report: function report(commentId) {
+            var path = '' + this.path + '/' + commentId + '/report';
+            var options = utils.buildOptions(this.apiUrl, path, 'post');
+
+            return this.imgurAPICall(options);
+        },
+        deleteComment: function deleteComment(commentId) {
+            var path = '' + this.path + '/' + commentId;
+            var options = utils.buildOptions(this.apiUrl, path, 'delete');
+
+            return this.imgurAPICall(options);
+        }
+    });
+
     var imgur = function imgur(clientKey) {
         var setUtil = function setUtil(key, value) {
             utils[key] = value;
@@ -152,6 +187,7 @@
             oauth2: oauth2Endpoint,
             topics: topicsEndpoint,
             gallery: galleryEndpoint,
+            comment: commentEndpoint,
             setUtil: setUtil,
             getUtil: getUtil
         };
