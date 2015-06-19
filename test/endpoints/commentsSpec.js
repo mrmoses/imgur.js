@@ -97,12 +97,13 @@ describe('Comment Action Endpoints', () => {
 
     describe('report', () => {
         const id = 1;
+        const reason = 5;
         let promise;
 
         describe('Check that function exists and params are correct', () => {
             beforeEach(() => {
                 stub(imgur.comment, 'report');
-                promise = imgur.comment.report(id);
+                promise = imgur.comment.report(id, reason);
             });
             afterEach(() => {
                 imgur.comment.report.restore();
@@ -113,14 +114,14 @@ describe('Comment Action Endpoints', () => {
             });
 
             it('should have been run with correct arguments', () => {
-                expect(imgur.comment.report).to.have.been.calledWith(id);
+                expect(imgur.comment.report).to.have.been.calledWith(id, reason);
             });
         });
 
         describe('check call on imgurAPICall', () => {
             beforeEach(() => {
                 stub(imgur.comment, 'imgurAPICall');
-                promise = imgur.comment.report(id);
+                promise = imgur.comment.report(id, reason);
             });
             afterEach(() => {
                 imgur.comment.imgurAPICall.restore();
@@ -134,7 +135,8 @@ describe('Comment Action Endpoints', () => {
                 expect(imgur.comment.imgurAPICall).to.have.been.calledWith({
                     apiUrl: "https://api.imgur.com/3",
                     path: `comment/${id}/report`,
-                    method: "post"
+                    method: "post",
+                    body: {reason: reason}
                 });
             });
         });

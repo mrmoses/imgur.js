@@ -7,8 +7,10 @@
         API_URL: 'https://api.imgur.com',
         API_VERSION: '3',
         CLIENT_ID: '',
-        buildOptions: function buildOptions(apiUrl, path, method) {
-            return { apiUrl: apiUrl, path: path, method: method };
+        buildOptions: function buildOptions(apiUrl, path, method, body) {
+            var requestOptions = body ? { apiUrl: apiUrl, path: path, method: method, body: body } : { apiUrl: apiUrl, path: path, method: method };
+
+            return requestOptions;
         },
         bearer: ''
     };
@@ -101,9 +103,9 @@
 
             return this.imgurAPICall(options);
         },
-        report: function report(hash) {
+        report: function report(hash, reason) {
             var path = '' + this.path + '/' + hash + '/report';
-            var options = utils.buildOptions(this.apiUrl, path, 'post');
+            var options = utils.buildOptions(this.apiUrl, path, 'post', { reason: reason });
 
             return this.imgurAPICall(options);
         },
@@ -151,9 +153,9 @@
 
             return this.imgurAPICall(options);
         },
-        report: function report(commentId) {
+        report: function report(commentId, reason) {
             var path = '' + this.path + '/' + commentId + '/report';
-            var options = utils.buildOptions(this.apiUrl, path, 'post');
+            var options = utils.buildOptions(this.apiUrl, path, 'post', { reason: reason });
 
             return this.imgurAPICall(options);
         },
