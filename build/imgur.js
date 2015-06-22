@@ -7,10 +7,10 @@
         API_URL: 'https://api.imgur.com',
         API_VERSION: '3',
         CLIENT_ID: '',
-        buildOptions: function buildOptions(apiUrl, path, method, body) {
-            var requestOptions = body ? { apiUrl: apiUrl, path: path, method: method, body: body } : { apiUrl: apiUrl, path: path, method: method };
+        buildOptions: function buildOptions(apiUrl, path, method) {
+            var body = arguments[3] === undefined ? {} : arguments[3];
 
-            return requestOptions;
+            return { apiUrl: apiUrl, path: path, method: method, body: body };
         },
         bearer: ''
     };

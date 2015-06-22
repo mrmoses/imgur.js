@@ -42,7 +42,8 @@ describe('Comment Action Endpoints', () => {
                 expect(imgur.comment.imgurAPICall).to.have.been.calledWith({
                     apiUrl: "https://api.imgur.com/3",
                     path: `comment/${id}/vote/up`,
-                    method: "post"
+                    method: "post",
+                    body: {}
                 });
             });
         });
@@ -88,7 +89,8 @@ describe('Comment Action Endpoints', () => {
                 expect(imgur.comment.imgurAPICall).to.have.been.calledWith({
                     apiUrl: "https://api.imgur.com/3",
                     path: `comment/${id}/vote/down`,
-                    method: "post"
+                    method: "post",
+                    body: {}
                 });
             });
         });
@@ -182,7 +184,8 @@ describe('Comment Action Endpoints', () => {
                 expect(imgur.comment.imgurAPICall).to.have.been.calledWith({
                     apiUrl: "https://api.imgur.com/3",
                     path: `comment/${id}`,
-                    method: "delete"
+                    method: "delete",
+                    body: {}
                 });
             });
         });

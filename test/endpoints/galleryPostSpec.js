@@ -44,7 +44,8 @@ describe('Gallery Post Endpoint', () => {
                 expect(imgur.gallery.post.imgurAPICall).to.have.been.calledWith({
                     apiUrl: "https://api.imgur.com/3",
                     path: `gallery/${hash}`,
-                    method: "get"
+                    method: "get",
+                    body: {}
                 });
             });
         });
@@ -98,4 +99,4 @@ describe('Gallery Post Endpoint', () => {
             });
         });
     });
-}); 
+});
