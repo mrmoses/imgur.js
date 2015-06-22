@@ -16,7 +16,7 @@
     };
 
     var imgurAPICall = function imgurAPICall(options) {
-        ['method', 'apiUrl', 'path'].forEach(function (option) {
+        ['method', 'apiUrl', 'path', 'body'].forEach(function (option) {
             if (!options[option]) {
                 throw new Error('' + option + ' must be specified');
             }
