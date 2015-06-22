@@ -23,7 +23,6 @@
         });
 
         var authToken = 'Client-ID ' + utils.CLIENT_ID;
-        var body = options.body || {};
 
         if (utils.BEARER) {
             authToken = 'Bearer ' + utils.BEARER;
