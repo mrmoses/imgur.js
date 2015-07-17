@@ -16,7 +16,7 @@ export default endpoint(_.extend({}, postOptions, {
     },
     report(hash, reason) {
         const path = `${this.path}/${hash}/report`;
-        const options = utils.buildOptions(this.apiUrl, path, 'post', {reason: reason});
+        const options = utils.buildOptions(this.apiUrl, path, 'post', { reason });
 
         return this.imgurAPICall(options);
     },
