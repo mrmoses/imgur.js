@@ -15,7 +15,7 @@ export default function(options) {
     }
 
     return request[options.method](`${options.apiUrl}/${options.path}`)
-        .send(body)
+        .send(options.body)
         .set('Authorization', authToken)
         .promise();
 };
