@@ -46,7 +46,8 @@ describe('Topics Endpoint', () => {
                 expect(imgur.topics.imgurAPICall).to.have.been.calledWith({
                     apiUrl: "https://api.imgur.com/3",
                     path: ['topics', topicId, sort, page].join('/'),
-                    method: "get"
+                    method: "get",
+                    body: {}
                 });
             });
         });
@@ -86,7 +87,8 @@ describe('Topics Endpoint', () => {
                 expect(imgur.topics.imgurAPICall).to.have.been.calledWith({
                     apiUrl: "https://api.imgur.com/3",
                     path: 'topics/defaults',
-                    method: "get"
+                    method: "get",
+                    body: {}
                 });
             });
         });

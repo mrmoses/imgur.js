@@ -47,7 +47,8 @@ describe('Gallery Endpoint', () => {
                 expect(imgur.gallery.imgurAPICall).to.have.been.calledWith({
                     apiUrl: "https://api.imgur.com/3",
                     path: `${['gallery', section, sort, page].join('/')}?showViral=${showViral}`,
-                    method: "get"
+                    method: "get",
+                    body: {}
                 });
             });
         });

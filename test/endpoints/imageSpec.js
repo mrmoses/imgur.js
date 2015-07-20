@@ -44,7 +44,8 @@ describe('Image Endpoint', () => {
                 expect(imgur.image.imgurAPICall).to.have.been.calledWith({
                     apiUrl: "https://api.imgur.com/3",
                     path: 'image/' + hash,
-                    method: "get"
+                    method: "get",
+                    body: {}
                 });
             });
         });
