@@ -46,8 +46,7 @@ describe('Gallery Post Comments Endpoint', () => {
                 expect(imgur.gallery.post.comments.imgurAPICall).to.have.been.calledWith({
                     apiUrl: "https://api.imgur.com/3",
                     path: ['gallery', hash, 'comments', sort].join('/'),
-                    method: "get",
-                    body: {}
+                    method: "get"
                 });
             });
         });

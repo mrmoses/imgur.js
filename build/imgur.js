@@ -8,21 +8,20 @@
         API_VERSION: '3',
         CLIENT_ID: '',
         buildOptions: function buildOptions(apiUrl, path, method) {
-            var body = arguments[3] === undefined ? {} : arguments[3];
-
-            return { apiUrl: apiUrl, path: path, method: method, body: body };
+            return { apiUrl: apiUrl, path: path, method: method };
         },
         bearer: ''
     };
 
     var imgurAPICall = function imgurAPICall(options) {
-        ['method', 'apiUrl', 'path', 'body'].forEach(function (option) {
+        ['method', 'apiUrl', 'path'].forEach(function (option) {
             if (!options[option]) {
                 throw new Error('' + option + ' must be specified');
             }
         });
 
         var authToken = 'Client-ID ' + utils.CLIENT_ID;
+        var body = options.body || {};
 
         if (utils.BEARER) {
             authToken = 'Bearer ' + utils.BEARER;
@@ -102,9 +101,9 @@
 
             return this.imgurAPICall(options);
         },
-        report: function report(hash, reason) {
+        report: function report(hash) {
             var path = '' + this.path + '/' + hash + '/report';
-            var options = utils.buildOptions(this.apiUrl, path, 'post', { reason: reason });
+            var options = utils.buildOptions(this.apiUrl, path, 'post');
 
             return this.imgurAPICall(options);
         },
@@ -152,9 +151,9 @@
 
             return this.imgurAPICall(options);
         },
-        report: function report(commentId, reason) {
+        report: function report(commentId) {
             var path = '' + this.path + '/' + commentId + '/report';
-            var options = utils.buildOptions(this.apiUrl, path, 'post', { reason: reason });
+            var options = utils.buildOptions(this.apiUrl, path, 'post');
 
             return this.imgurAPICall(options);
         },

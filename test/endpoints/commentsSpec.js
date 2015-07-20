@@ -42,8 +42,7 @@ describe('Comment Action Endpoints', () => {
                 expect(imgur.comment.imgurAPICall).to.have.been.calledWith({
                     apiUrl: "https://api.imgur.com/3",
                     path: `comment/${id}/vote/up`,
-                    method: "post",
-                    body: {}
+                    method: "post"
                 });
             });
         });
@@ -89,8 +88,7 @@ describe('Comment Action Endpoints', () => {
                 expect(imgur.comment.imgurAPICall).to.have.been.calledWith({
                     apiUrl: "https://api.imgur.com/3",
                     path: `comment/${id}/vote/down`,
-                    method: "post",
-                    body: {}
+                    method: "post"
                 });
             });
         });
@@ -99,13 +97,12 @@ describe('Comment Action Endpoints', () => {
 
     describe('report', () => {
         const id = 1;
-        const reason = 5;
         let promise;
 
         describe('Check that function exists and params are correct', () => {
             beforeEach(() => {
                 stub(imgur.comment, 'report');
-                promise = imgur.comment.report(id, reason);
+                promise = imgur.comment.report(id);
             });
             afterEach(() => {
                 imgur.comment.report.restore();
@@ -116,14 +113,14 @@ describe('Comment Action Endpoints', () => {
             });
 
             it('should have been run with correct arguments', () => {
-                expect(imgur.comment.report).to.have.been.calledWith(id, reason);
+                expect(imgur.comment.report).to.have.been.calledWith(id);
             });
         });
 
         describe('check call on imgurAPICall', () => {
             beforeEach(() => {
                 stub(imgur.comment, 'imgurAPICall');
-                promise = imgur.comment.report(id, reason);
+                promise = imgur.comment.report(id);
             });
             afterEach(() => {
                 imgur.comment.imgurAPICall.restore();
@@ -137,8 +134,7 @@ describe('Comment Action Endpoints', () => {
                 expect(imgur.comment.imgurAPICall).to.have.been.calledWith({
                     apiUrl: "https://api.imgur.com/3",
                     path: `comment/${id}/report`,
-                    method: "post",
-                    body: {reason: reason}
+                    method: "post"
                 });
             });
         });
@@ -184,8 +180,7 @@ describe('Comment Action Endpoints', () => {
                 expect(imgur.comment.imgurAPICall).to.have.been.calledWith({
                     apiUrl: "https://api.imgur.com/3",
                     path: `comment/${id}`,
-                    method: "delete",
-                    body: {}
+                    method: "delete"
                 });
             });
         });

@@ -44,8 +44,7 @@ describe('Gallery Post Endpoint', () => {
                 expect(imgur.gallery.post.imgurAPICall).to.have.been.calledWith({
                     apiUrl: "https://api.imgur.com/3",
                     path: `gallery/${hash}`,
-                    method: "get",
-                    body: {}
+                    method: "get"
                 });
             });
         });
@@ -53,13 +52,12 @@ describe('Gallery Post Endpoint', () => {
 
     describe('Report Post Endpoint', () => {
         const hash = 2;
-        const reason = 5;
         let promise;
 
         describe('synchronous Report function', () => {
             beforeEach(() => {
                 stub(imgur.gallery.post, 'report');
-                promise = imgur.gallery.post.report(hash, reason);
+                promise = imgur.gallery.post.report(hash);
             });
             afterEach(() => {
                 imgur.gallery.post.report.restore();
@@ -70,7 +68,7 @@ describe('Gallery Post Endpoint', () => {
             });
 
             it('should have been run with a the correct arguments', () => {
-                expect(imgur.gallery.post.report).to.have.been.calledWith(hash, reason);
+                expect(imgur.gallery.post.report).to.have.been.calledWith(hash);
             });
 
         });
@@ -78,7 +76,7 @@ describe('Gallery Post Endpoint', () => {
         describe('synchronous Report function call to imgurAPICall', () => {
             beforeEach(() => {
                 stub(imgur.gallery.post, 'imgurAPICall');
-                promise = imgur.gallery.post.report(hash, reason);
+                promise = imgur.gallery.post.report(hash);
             });
             afterEach(() => {
                 imgur.gallery.post.imgurAPICall.restore();
@@ -93,10 +91,9 @@ describe('Gallery Post Endpoint', () => {
                 expect(imgur.gallery.post.imgurAPICall).to.have.been.calledWith({
                     apiUrl: "https://api.imgur.com/3",
                     path: `gallery/${hash}/report`,
-                    method: "post",
-                    body: {reason: reason}
+                    method: "post"
                 });
             });
         });
     });
-});
+}); 

@@ -41,8 +41,7 @@ describe('oauth2 Endpoint', () => {
                 expect(imgur.oauth2.imgurAPICall).to.have.been.calledWith({
                     apiUrl: 'https://api.imgur.com',
                     path: 'oauth2/authorize?response_type=token&client_id=testKey',
-                    method: 'get',
-                    body: {}
+                    method: 'get'
                 });
             });
         });
@@ -87,8 +86,7 @@ describe('oauth2 Endpoint', () => {
                 expect(imgur.oauth2.imgurAPICall).to.have.been.calledWith({
                     apiUrl: 'https://api.imgur.com',
                     path: 'oauth2/token?refresh_token=testRefreshToken&client_id=testKey&client_secret=testClientSecret&grant_type=refresh_token',
-                    method: 'post',
-                    body: {}
+                    method: 'post'
                 });
             });
         });
