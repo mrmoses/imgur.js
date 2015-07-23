@@ -28,7 +28,7 @@
             authToken = 'Bearer ' + utils.BEARER;
         }
 
-        return request[options.method]('' + options.apiUrl + '/' + options.path).send(body).set('Authorization', authToken).promise();
+        return request[options.method]('' + options.apiUrl + '/' + options.path).send(options.body).set('Authorization', authToken).promise();
     };
 
     var endpoint = function endpoint(options) {
@@ -140,25 +140,71 @@
     var commentEndpoint = endpoint({
         path: 'comment',
         apiUrl: '' + utils.API_URL + '/' + utils.API_VERSION,
+        get: function get(commentId) {
+            if (!commentId) {
+                throw new Error('commentId must be specified');
+            }
+
+            var path = '' + this.path + '/' + commentId;
+            var options = utils.buildOptions(this.apiUrl, path, 'get');
+
+            return this.imgurAPICall(options);
+        },
+        submitComment: function submitComment(params) {
+            ['image_id', 'comment'].forEach(function (option) {
+                if (!params[option]) {
+                    throw new Error('' + option + ' must be specified');
+                }
+            });
+
+            var options = utils.buildOptions(this.apiUrl, this.path, 'post', params);
+            return this.imgurAPICall(options);
+        },
+        submitReply: function submitReply(params) {
+            ['image_id', 'comment', 'parent_id'].forEach(function (option) {
+                if (!params[option]) {
+                    throw new Error('' + option + ' must be specified');
+                }
+            });
+
+            var options = utils.buildOptions(this.apiUrl, this.path, 'post', params);
+            return this.imgurAPICall(options);
+        },
         downvote: function downvote(commentId) {
+            if (!commentId) {
+                throw new Error('commentId must be specified');
+            }
+
             var path = '' + this.path + '/' + commentId + '/vote/down';
             var options = utils.buildOptions(this.apiUrl, path, 'post');
 
             return this.imgurAPICall(options);
         },
         upvote: function upvote(commentId) {
+            if (!commentId) {
+                throw new Error('commentId must be specified');
+            }
+
             var path = '' + this.path + '/' + commentId + '/vote/up';
             var options = utils.buildOptions(this.apiUrl, path, 'post');
 
             return this.imgurAPICall(options);
         },
         report: function report(commentId, reason) {
+            if (!commentId) {
+                throw new Error('commentId must be specified');
+            }
+
             var path = '' + this.path + '/' + commentId + '/report';
             var options = utils.buildOptions(this.apiUrl, path, 'post', { reason: reason });
 
             return this.imgurAPICall(options);
         },
         deleteComment: function deleteComment(commentId) {
+            if (!commentId) {
+                throw new Error('commentId must be specified');
+            }
+
             var path = '' + this.path + '/' + commentId;
             var options = utils.buildOptions(this.apiUrl, path, 'delete');
 
