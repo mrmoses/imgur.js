@@ -96,6 +96,7 @@
     };
 
     var galleryPostEndpoint = endpoint(_.extend({}, postOptions, {
+        DOES_NOT_BELONG_ON_IMGUR: 1,
         get: function get(hash) {
             var path = '' + this.path + '/' + hash;
             var options = utils.buildOptions(this.apiUrl, path, 'get');
@@ -103,7 +104,7 @@
             return this.imgurAPICall(options);
         },
         report: function report(hash) {
-            var reason = arguments[1] === undefined ? 1 : arguments[1];
+            var reason = arguments[1] === undefined ? this.DOES_NOT_BELONG_ON_IMGUR : arguments[1];
 
             if (!hash) {
                 throw new Error('hash must be specified');
@@ -178,6 +179,7 @@
     var commentEndpoint = endpoint({
         path: 'comment',
         apiUrl: '' + utils.API_URL + '/' + utils.API_VERSION,
+        DOES_NOT_BELONG_ON_IMGUR: 1,
         get: function get(commentId) {
             if (!commentId) {
                 throw new Error('commentId must be specified');
@@ -209,11 +211,12 @@
             return this.imgurAPICall(options);
         },
         report: function report(commentId) {
-            var reason = arguments[1] === undefined ? 1 : arguments[1];
+            var reason = arguments[1] === undefined ? this.DOES_NOT_BELONG_ON_IMGUR : arguments[1];
 
             if (!commentId) {
                 throw new Error('commentId must be specified');
             }
+
             if (typeof reason !== 'number') {
                 throw new Error('the reason must be an integer');
             }

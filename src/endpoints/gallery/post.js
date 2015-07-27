@@ -8,17 +8,20 @@ const postOptions = {
 };
 
 export default endpoint(_.extend({}, postOptions, {
+    DOES_NOT_BELONG_ON_IMGUR: 1,
     get(hash) {
         const path = `${this.path}/${hash}`;
         const options = utils.buildOptions(this.apiUrl, path, 'get');
 
         return this.imgurAPICall(options);
     },
-    report(hash, reason = 1) {
+    report(hash, reason = this.DOES_NOT_BELONG_ON_IMGUR) {
         if(!hash) { throw new Error('hash must be specified'); }
+
         if(typeof reason !== 'number') {
             throw new Error('the reason must be an integer');
         }
+
         const path = `${this.path}/${hash}/report`;
         const options = utils.buildOptions(this.apiUrl, path, 'post', { reason });
 
@@ -26,6 +29,7 @@ export default endpoint(_.extend({}, postOptions, {
     },
     _handleVote(hash, voteType) {
         if(!hash) { throw new Error('hash must be specified'); }
+
         const path = `${this.path}/${hash}/vote/${voteType}`;
         const options = utils.buildOptions(this.apiUrl, path, 'post');
 
@@ -39,6 +43,7 @@ export default endpoint(_.extend({}, postOptions, {
     },
     favorite(hash, isAlbum) {
         if(!hash) { throw new Error('hash must be specified'); }
+
         if(isAlbum === undefined || typeof(isAlbum) !== 'boolean') {
             throw new Error('isAlbum with type boolean must be specified');
         }

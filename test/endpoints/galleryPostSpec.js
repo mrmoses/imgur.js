@@ -230,7 +230,6 @@ describe('Gallery Post Endpoint', () => {
                 imgur.gallery.post.imgurAPICall.restore();
             });
 
-
             it('should call imgurAPICall', () => {
                 expect(imgur.gallery.post.imgurAPICall).to.have.been.calledOnce;
             });
@@ -304,7 +303,6 @@ describe('Gallery Post Endpoint', () => {
             afterEach(() => {
                 imgur.gallery.post.imgurAPICall.restore();
             });
-
 
             it('should call imgurAPICall', () => {
                 expect(imgur.gallery.post.imgurAPICall).to.have.been.calledOnce;
