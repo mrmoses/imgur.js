@@ -4,7 +4,7 @@ import utils from '../utils';
 export default endpoint({
     path: 'comment',
     apiUrl: `${utils.API_URL}/${utils.API_VERSION}`,
-    DOES_NOT_BELONG_ON_IMGUR: 1,
+    REASON_DOES_NOT_BELONG_ON_IMGUR: 1,
     get(commentId) {
         if(!commentId) { throw new Error('commentId must be specified'); }
 
@@ -29,7 +29,7 @@ export default endpoint({
 
         return this.imgurAPICall(options);
     },
-    report(commentId, reason = this.DOES_NOT_BELONG_ON_IMGUR) {
+    report(commentId, reason = this.REASON_DOES_NOT_BELONG_ON_IMGUR) {
         if(!commentId) { throw new Error('commentId must be specified'); }
 
         if(typeof reason !== 'number') {

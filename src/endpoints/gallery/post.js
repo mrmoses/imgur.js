@@ -8,14 +8,14 @@ const postOptions = {
 };
 
 export default endpoint(_.extend({}, postOptions, {
-    DOES_NOT_BELONG_ON_IMGUR: 1,
+    REASON_DOES_NOT_BELONG_ON_IMGUR: 1,
     get(hash) {
         const path = `${this.path}/${hash}`;
         const options = utils.buildOptions(this.apiUrl, path, 'get');
 
         return this.imgurAPICall(options);
     },
-    report(hash, reason = this.DOES_NOT_BELONG_ON_IMGUR) {
+    report(hash, reason = this.REASON_DOES_NOT_BELONG_ON_IMGUR) {
         if(!hash) { throw new Error('hash must be specified'); }
 
         if(typeof reason !== 'number') {

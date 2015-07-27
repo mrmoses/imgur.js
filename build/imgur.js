@@ -96,7 +96,7 @@
     };
 
     var galleryPostEndpoint = endpoint(_.extend({}, postOptions, {
-        DOES_NOT_BELONG_ON_IMGUR: 1,
+        REASON_DOES_NOT_BELONG_ON_IMGUR: 1,
         get: function get(hash) {
             var path = '' + this.path + '/' + hash;
             var options = utils.buildOptions(this.apiUrl, path, 'get');
@@ -104,14 +104,16 @@
             return this.imgurAPICall(options);
         },
         report: function report(hash) {
-            var reason = arguments[1] === undefined ? this.DOES_NOT_BELONG_ON_IMGUR : arguments[1];
+            var reason = arguments[1] === undefined ? this.REASON_DOES_NOT_BELONG_ON_IMGUR : arguments[1];
 
             if (!hash) {
                 throw new Error('hash must be specified');
             }
+
             if (typeof reason !== 'number') {
                 throw new Error('the reason must be an integer');
             }
+
             var path = '' + this.path + '/' + hash + '/report';
             var options = utils.buildOptions(this.apiUrl, path, 'post', { reason: reason });
 
@@ -121,6 +123,7 @@
             if (!hash) {
                 throw new Error('hash must be specified');
             }
+
             var path = '' + this.path + '/' + hash + '/vote/' + voteType;
             var options = utils.buildOptions(this.apiUrl, path, 'post');
 
@@ -136,6 +139,7 @@
             if (!hash) {
                 throw new Error('hash must be specified');
             }
+
             if (isAlbum === undefined || typeof isAlbum !== 'boolean') {
                 throw new Error('isAlbum with type boolean must be specified');
             }
@@ -179,7 +183,7 @@
     var commentEndpoint = endpoint({
         path: 'comment',
         apiUrl: '' + utils.API_URL + '/' + utils.API_VERSION,
-        DOES_NOT_BELONG_ON_IMGUR: 1,
+        REASON_DOES_NOT_BELONG_ON_IMGUR: 1,
         get: function get(commentId) {
             if (!commentId) {
                 throw new Error('commentId must be specified');
@@ -211,7 +215,7 @@
             return this.imgurAPICall(options);
         },
         report: function report(commentId) {
-            var reason = arguments[1] === undefined ? this.DOES_NOT_BELONG_ON_IMGUR : arguments[1];
+            var reason = arguments[1] === undefined ? this.REASON_DOES_NOT_BELONG_ON_IMGUR : arguments[1];
 
             if (!commentId) {
                 throw new Error('commentId must be specified');
