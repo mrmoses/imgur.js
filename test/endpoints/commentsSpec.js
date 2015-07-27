@@ -190,7 +190,7 @@ describe('Comment Action Endpoints', () => {
             });
 
             it('should throw error when reason is not an integer', () => {
-                expect(imgur.comment.report.bind(imgur.comment, undefined, 'hi')).to.throw('the reason must be an integer');
+                expect(imgur.comment.report.bind(imgur.comment, id, 'hi')).to.throw('the reason must be an integer');
             });
         });
 
@@ -272,5 +272,104 @@ describe('Comment Action Endpoints', () => {
 
     });
 
-    //TODO add spec for Submit Comment and Submit Reply
+    describe('submitComment', () => {
+        const params = {
+            'image_id': 'g1GLByF',
+            'comment': 'This is the comment text for a test'
+        };
+
+        let promise;
+
+        describe('Check that function exists and params are correct', () => {
+            beforeEach(() => {
+                stub(imgur.comment, 'submitComment');
+                promise = imgur.comment.submitComment(params);
+            });
+            afterEach(() => {
+                imgur.comment.submitComment.restore();
+            });
+
+            it('should have been run once', () => {
+                expect(imgur.comment.submitComment).to.have.been.calledOnce;
+            });
+
+            it('should have been run with correct arguments', () => {
+                expect(imgur.comment.submitComment).to.have.been.calledWith(params);
+            });
+        });
+
+        describe('check call on imgurAPICall', () => {
+            beforeEach(() => {
+                stub(imgur.comment, 'imgurAPICall');
+                promise = imgur.comment.submitComment(params);
+            });
+            afterEach(() => {
+                imgur.comment.imgurAPICall.restore();
+            });
+
+            it('should have been run once', () => {
+                expect(imgur.comment.imgurAPICall).to.have.been.calledOnce;
+            });
+
+            it('should have been run with correct arguments', () => {
+                expect(imgur.comment.imgurAPICall).to.have.been.calledWith({
+                    apiUrl: "https://api.imgur.com/3",
+                    path: `comment`,
+                    method: "post",
+                    body: params
+                });
+            });
+        });
+    });
+
+    describe('submitReply', () => {
+        const params = {
+            'image_id': 'g1GLByF',
+            'comment': 'This is the comment text for a test',
+            'parent_id': '449944053'
+        };
+
+        let promise;
+
+        describe('Check that function exists and params are correct', () => {
+            beforeEach(() => {
+                stub(imgur.comment, 'submitReply');
+                promise = imgur.comment.submitReply(params);
+            });
+            afterEach(() => {
+                imgur.comment.submitReply.restore();
+            });
+
+            it('should have been run once', () => {
+                expect(imgur.comment.submitReply).to.have.been.calledOnce;
+            });
+
+            it('should have been run with correct arguments', () => {
+                expect(imgur.comment.submitReply).to.have.been.calledWith(params);
+            });
+        });
+
+        describe('check call on imgurAPICall', () => {
+            beforeEach(() => {
+                stub(imgur.comment, 'imgurAPICall');
+                promise = imgur.comment.submitReply(params);
+            });
+            afterEach(() => {
+                imgur.comment.imgurAPICall.restore();
+            });
+
+            it('should have been run once', () => {
+                expect(imgur.comment.imgurAPICall).to.have.been.calledOnce;
+            });
+
+            it('should have been run with correct arguments', () => {
+                expect(imgur.comment.imgurAPICall).to.have.been.calledWith({
+                    apiUrl: "https://api.imgur.com/3",
+                    path: `comment`,
+                    method: "post",
+                    body: params
+                });
+            });
+        });
+    });
 });

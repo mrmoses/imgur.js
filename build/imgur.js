@@ -150,26 +150,6 @@
 
             return this.imgurAPICall(options);
         },
-        submitComment: function submitComment(params) {
-            ['image_id', 'comment'].forEach(function (option) {
-                if (!params[option]) {
-                    throw new Error('' + option + ' must be specified');
-                }
-            });
-
-            var options = utils.buildOptions(this.apiUrl, this.path, 'post', params);
-            return this.imgurAPICall(options);
-        },
-        submitReply: function submitReply(params) {
-            ['image_id', 'comment', 'parent_id'].forEach(function (option) {
-                if (!params[option]) {
-                    throw new Error('' + option + ' must be specified');
-                }
-            });
-
-            var options = utils.buildOptions(this.apiUrl, this.path, 'post', params);
-            return this.imgurAPICall(options);
-        },
         downvote: function downvote(commentId) {
             if (!commentId) {
                 throw new Error('commentId must be specified');
@@ -194,6 +174,9 @@
             if (!commentId) {
                 throw new Error('commentId must be specified');
             }
+            if (reason && typeof reason !== 'number') {
+                throw new Error('the reason must be an integer');
+            }
 
             var path = '' + this.path + '/' + commentId + '/report';
             var options = utils.buildOptions(this.apiUrl, path, 'post', { reason: reason });
@@ -208,6 +191,27 @@
             var path = '' + this.path + '/' + commentId;
             var options = utils.buildOptions(this.apiUrl, path, 'delete');
 
+            return this.imgurAPICall(options);
+        },
+        submitComment: function submitComment(params) {
+            ['image_id', 'comment'].forEach(function (option) {
+                console.log(!params[option]);
+                if (!params[option]) {
+                    throw new Error('' + option + ' must be specified');
+                }
+            });
+
+            var options = utils.buildOptions(this.apiUrl, this.path, 'post', params);
+            return this.imgurAPICall(options);
+        },
+        submitReply: function submitReply(params) {
+            ['image_id', 'comment', 'parent_id'].forEach(function (option) {
+                if (!params[option]) {
+                    throw new Error('' + option + ' must be specified');
+                }
+            });
+
+            var options = utils.buildOptions(this.apiUrl, this.path, 'post', params);
             return this.imgurAPICall(options);
         }
     });

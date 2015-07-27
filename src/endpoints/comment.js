@@ -12,26 +12,6 @@ export default endpoint({
 
         return this.imgurAPICall(options);
     },
-    submitComment(params) {
-        ['image_id', 'comment'].forEach(option => {
-            if (!params[option]) {
-                throw new Error(`${option} must be specified`);
-            }
-        });
-
-        const options = utils.buildOptions(this.apiUrl, this.path, 'post', params);
-        return this.imgurAPICall(options);
-    },
-    submitReply(params) {
-        ['image_id', 'comment', 'parent_id'].forEach(option => {
-            if (!params[option]) {
-                throw new Error(`${option} must be specified`);
-            }
-        });
-
-        const options = utils.buildOptions(this.apiUrl, this.path, 'post', params);
-        return this.imgurAPICall(options);
-    },
     downvote(commentId) {
         if(!commentId) { throw new Error('commentId must be specified'); }
 
@@ -50,7 +30,9 @@ export default endpoint({
     },
     report(commentId, reason) {
         if(!commentId) { throw new Error('commentId must be specified'); }
-        if(reason && typeof reason !== 'number') { throw new Error('the reason must be an integer'); }
+        if(reason && typeof reason !== 'number') {
+            throw new Error('the reason must be an integer');
+        }
 
         const path = `${this.path}/${commentId}/report`;
         const options = utils.buildOptions(this.apiUrl, path, 'post', { reason });
@@ -63,6 +45,27 @@ export default endpoint({
         const path = `${this.path}/${commentId}`;
         const options = utils.buildOptions(this.apiUrl, path, 'delete');
 
+        return this.imgurAPICall(options);
+    },
+    submitComment(params) {
+        ['image_id', 'comment'].forEach(option => {
+            console.log(!params[option]);
+            if (!params[option]) {
+                throw new Error(`${option} must be specified`);
+            }
+        });
+
+        const options = utils.buildOptions(this.apiUrl, this.path, 'post', params);
+        return this.imgurAPICall(options);
+    },
+    submitReply(params) {
+        ['image_id', 'comment', 'parent_id'].forEach(option => {
+            if (!params[option]) {
+                throw new Error(`${option} must be specified`);
+            }
+        });
+
+        const options = utils.buildOptions(this.apiUrl, this.path, 'post', params);
         return this.imgurAPICall(options);
     }
 });
