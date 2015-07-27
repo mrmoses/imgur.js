@@ -14,9 +14,9 @@ const source = require('vinyl-source-stream');
 
 const manifest = require('./package.json');
 const config = manifest.babelOptions;
-const mainFile = manifest.main;
-const destinationFolder = path.dirname(mainFile);
-const exportFileName = path.basename(mainFile, path.extname(mainFile));
+const buildFile = 'build/imgur.js';
+const destinationFolder = path.dirname(buildFile);
+const exportFileName = path.basename(buildFile, path.extname(buildFile));
 
 // Remove the built files
 gulp.task('clean', function(cb) {
