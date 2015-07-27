@@ -28,9 +28,9 @@ export default endpoint({
 
         return this.imgurAPICall(options);
     },
-    report(commentId, reason) {
+    report(commentId, reason = 1) {
         if(!commentId) { throw new Error('commentId must be specified'); }
-        if(reason && typeof reason !== 'number') {
+        if(typeof reason !== 'number') {
             throw new Error('the reason must be an integer');
         }
 
