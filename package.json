@@ -9,15 +9,14 @@
   "homepage": "https://github.com/imgur/imgur.js",
   "author": "Imgur <devs@imgur.com> (https://imgur.com/)",
   "contributors": [
-    "Selby Walker <selby@imgur.com>",
-    "Tony Guglielmi <tony@imgur.com>"
+    "Selby Walker <selby@imgur.com>"
   ],
   "repository": {
     "type": "git",
     "url": "git://github.com/imgur/imgur.js.git"
   },
   "bugs:": "https://github.com/imgur/imgur.js/issues",
-  "main": "src/imgur.js",
+  "main": "build/imgur.js",
   "browserify": {
     "transform": [
       [
