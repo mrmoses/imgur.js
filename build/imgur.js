@@ -28,7 +28,7 @@
             authToken = 'Bearer ' + utils.BEARER;
         }
 
-        return request[options.method]('' + options.apiUrl + '/' + options.path).send(body).set('Authorization', authToken).promise();
+        return request[options.method]('' + options.apiUrl + '/' + options.path).send(options.body).set('Authorization', authToken).promise();
     };
 
     var endpoint = function endpoint(options) {
@@ -96,15 +96,58 @@
     };
 
     var galleryPostEndpoint = endpoint(_.extend({}, postOptions, {
+        REASON_DOES_NOT_BELONG_ON_IMGUR: 1,
         get: function get(hash) {
             var path = '' + this.path + '/' + hash;
             var options = utils.buildOptions(this.apiUrl, path, 'get');
 
             return this.imgurAPICall(options);
         },
-        report: function report(hash, reason) {
+        report: function report(hash) {
+            var reason = arguments[1] === undefined ? this.REASON_DOES_NOT_BELONG_ON_IMGUR : arguments[1];
+
+            if (!hash) {
+                throw new Error('hash must be specified');
+            }
+
+            if (typeof reason !== 'number') {
+                throw new Error('the reason must be an integer');
+            }
+
             var path = '' + this.path + '/' + hash + '/report';
             var options = utils.buildOptions(this.apiUrl, path, 'post', { reason: reason });
+
+            return this.imgurAPICall(options);
+        },
+        _handleVote: function _handleVote(hash, voteType) {
+            if (!hash) {
+                throw new Error('hash must be specified');
+            }
+
+            var path = '' + this.path + '/' + hash + '/vote/' + voteType;
+            var options = utils.buildOptions(this.apiUrl, path, 'post');
+
+            return this.imgurAPICall(options);
+        },
+        upvote: function upvote(hash) {
+            this._handleVote(hash, 'up');
+        },
+        downvote: function downvote(hash) {
+            this._handleVote(hash, 'down');
+        },
+        favorite: function favorite(hash, isAlbum) {
+            if (!hash) {
+                throw new Error('hash must be specified');
+            }
+
+            if (isAlbum === undefined || typeof isAlbum !== 'boolean') {
+                throw new Error('isAlbum with type boolean must be specified');
+            }
+
+            var postType = isAlbum ? 'album' : 'image';
+            //doesn't use gallery path because it could be a non gallery item
+            var path = '' + postType + '/' + hash + '/favorite';
+            var options = utils.buildOptions(this.apiUrl, path, 'post');
 
             return this.imgurAPICall(options);
         },
@@ -140,28 +183,82 @@
     var commentEndpoint = endpoint({
         path: 'comment',
         apiUrl: '' + utils.API_URL + '/' + utils.API_VERSION,
+        REASON_DOES_NOT_BELONG_ON_IMGUR: 1,
+        get: function get(commentId) {
+            if (!commentId) {
+                throw new Error('commentId must be specified');
+            }
+
+            var path = '' + this.path + '/' + commentId;
+            var options = utils.buildOptions(this.apiUrl, path, 'get');
+
+            return this.imgurAPICall(options);
+        },
         downvote: function downvote(commentId) {
+            if (!commentId) {
+                throw new Error('commentId must be specified');
+            }
+
             var path = '' + this.path + '/' + commentId + '/vote/down';
             var options = utils.buildOptions(this.apiUrl, path, 'post');
 
             return this.imgurAPICall(options);
         },
         upvote: function upvote(commentId) {
+            if (!commentId) {
+                throw new Error('commentId must be specified');
+            }
+
             var path = '' + this.path + '/' + commentId + '/vote/up';
             var options = utils.buildOptions(this.apiUrl, path, 'post');
 
             return this.imgurAPICall(options);
         },
-        report: function report(commentId, reason) {
+        report: function report(commentId) {
+            var reason = arguments[1] === undefined ? this.REASON_DOES_NOT_BELONG_ON_IMGUR : arguments[1];
+
+            if (!commentId) {
+                throw new Error('commentId must be specified');
+            }
+
+            if (typeof reason !== 'number') {
+                throw new Error('the reason must be an integer');
+            }
+
             var path = '' + this.path + '/' + commentId + '/report';
             var options = utils.buildOptions(this.apiUrl, path, 'post', { reason: reason });
 
             return this.imgurAPICall(options);
         },
         deleteComment: function deleteComment(commentId) {
+            if (!commentId) {
+                throw new Error('commentId must be specified');
+            }
+
             var path = '' + this.path + '/' + commentId;
             var options = utils.buildOptions(this.apiUrl, path, 'delete');
 
+            return this.imgurAPICall(options);
+        },
+        submitComment: function submitComment(params) {
+            ['image_id', 'comment'].forEach(function (option) {
+                console.log(!params[option]);
+                if (!params[option]) {
+                    throw new Error('' + option + ' must be specified');
+                }
+            });
+
+            var options = utils.buildOptions(this.apiUrl, this.path, 'post', params);
+            return this.imgurAPICall(options);
+        },
+        submitReply: function submitReply(params) {
+            ['image_id', 'comment', 'parent_id'].forEach(function (option) {
+                if (!params[option]) {
+                    throw new Error('' + option + ' must be specified');
+                }
+            });
+
+            var options = utils.buildOptions(this.apiUrl, this.path, 'post', params);
             return this.imgurAPICall(options);
         }
     });
