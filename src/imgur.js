@@ -6,7 +6,7 @@ import galleryEndpoint from './endpoints/gallery';
 import commentEndpoint from './endpoints/comment';
 import utils from './utils.js';
 
-export default function(clientKey) {
+export default function(clientKey, bearerKey) {
     let setUtil = function(key, value) {
         utils[key] = value;
     };
@@ -20,6 +20,10 @@ export default function(clientKey) {
     }
 
     setUtil('CLIENT_ID', clientKey);
+
+    if(bearerKey) {
+        setUtil('bearer', bearerKey);
+    }
 
     return {
         imgurAPICall,
