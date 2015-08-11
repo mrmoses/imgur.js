@@ -24,8 +24,8 @@
 
         var authToken = 'Client-ID ' + utils.CLIENT_ID;
 
-        if (utils.BEARER) {
-            authToken = 'Bearer ' + utils.BEARER;
+        if (utils.bearer) {
+            authToken = 'Bearer ' + utils.bearer;
         }
 
         return request[options.method]('' + options.apiUrl + '/' + options.path).send(options.body).set('Authorization', authToken).promise();
@@ -263,7 +263,7 @@
         }
     });
 
-    var imgur = function imgur(clientKey) {
+    var imgur = function imgur(clientKey, bearerKey) {
         var setUtil = function setUtil(key, value) {
             utils[key] = value;
         };
@@ -277,6 +277,10 @@
         }
 
         setUtil('CLIENT_ID', clientKey);
+
+        if (bearerKey) {
+            setUtil('bearer', bearerKey);
+        }
 
         return {
             imgurAPICall: imgurAPICall,

@@ -10,8 +10,8 @@ export default function(options) {
 
     let authToken = `Client-ID ${utils.CLIENT_ID}`;
 
-    if(utils.BEARER) {
-        authToken = `Bearer ${utils.BEARER}`;
+    if(utils.bearer) {
+        authToken = `Bearer ${utils.bearer}`;
     }
 
     return request[options.method](`${options.apiUrl}/${options.path}`)

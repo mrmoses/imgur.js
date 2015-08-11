@@ -31,7 +31,7 @@ Using the Project
 -----------------
 
   - `var Imgur = require('imgur');`
-  - `var imgurInstance = Imgur(<API CLIENT ID>);`
+  - `var imgurInstance = Imgur(<API CLIENT ID>, <OPTIONAL BEARER ID>);`
 
 Available Endpoints
 -------------------
