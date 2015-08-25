@@ -36,10 +36,10 @@ export default endpoint(_.extend({}, postOptions, {
         return this.imgurAPICall(options);
     },
     upvote(hash) {
-        this._handleVote(hash, 'up');
+        return this._handleVote(hash, 'up');
     },
     downvote(hash) {
-        this._handleVote(hash, 'down');
+        return this._handleVote(hash, 'down');
     },
     favorite(hash, isAlbum) {
         if(!hash) { throw new Error('hash must be specified'); }
