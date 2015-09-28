@@ -130,10 +130,10 @@
             return this.imgurAPICall(options);
         },
         upvote: function upvote(hash) {
-            this._handleVote(hash, 'up');
+            return this._handleVote(hash, 'up');
         },
         downvote: function downvote(hash) {
-            this._handleVote(hash, 'down');
+            return this._handleVote(hash, 'down');
         },
         favorite: function favorite(hash, isAlbum) {
             if (!hash) {
