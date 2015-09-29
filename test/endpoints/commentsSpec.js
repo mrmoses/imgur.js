@@ -264,7 +264,7 @@ describe('Comment Action Endpoints', () => {
                 expect(imgur.comment.imgurAPICall).to.have.been.calledWith({
                     apiUrl: "https://api.imgur.com/3",
                     path: `comment/${id}`,
-                    method: "delete",
+                    method: "del",
                     body: {}
                 });
             });

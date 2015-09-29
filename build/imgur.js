@@ -236,7 +236,7 @@
             }
 
             var path = '' + this.path + '/' + commentId;
-            var options = utils.buildOptions(this.apiUrl, path, 'delete');
+            var options = utils.buildOptions(this.apiUrl, path, 'del');
 
             return this.imgurAPICall(options);
         },
