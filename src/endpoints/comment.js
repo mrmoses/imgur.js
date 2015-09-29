@@ -45,7 +45,7 @@ export default endpoint({
         if(!commentId) { throw new Error('commentId must be specified'); }
 
         const path = `${this.path}/${commentId}`;
-        const options = utils.buildOptions(this.apiUrl, path, 'delete');
+        const options = utils.buildOptions(this.apiUrl, path, 'del');
 
         return this.imgurAPICall(options);
     },
