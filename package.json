@@ -1,6 +1,6 @@
 {
   "name": "imgur",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Imgur JavaScript API library",
   "keywords": [
     "imgur",
@@ -35,6 +35,8 @@
   },
   "license": "ISC",
   "dependencies": {
+    "bluebird": "^2.10.2",
+    "superagent": "*",
     "superagent-bluebird-promise": "^2.0.2"
     },
   "devDependencies": {
