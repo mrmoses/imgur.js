@@ -1,4 +1,5 @@
 import imgurAPICall from './imgurAPICall';
+import accountEndpoint from './endpoints/account';
 import imageEndpoint from './endpoints/image';
 import oauth2Endpoint from './endpoints/oauth2';
 import topicsEndpoint from './endpoints/topics';
@@ -28,6 +29,7 @@ export default function(clientKey, bearerKey) {
     return {
         imgurAPICall,
         CLIENT_ID: clientKey,
+        account: accountEndpoint,
         image: imageEndpoint,
         oauth2: oauth2Endpoint,
         topics: topicsEndpoint,
