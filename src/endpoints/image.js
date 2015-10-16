@@ -8,6 +8,11 @@ export default endpoint({
         const options = utils.buildOptions(this.apiUrl, `${this.path}/${hash}`, 'get');
 
         return this.imgurAPICall(options);
+    },
+    upload(uploadParams) {
+        const options = utils.buildOptions(this.apiUrl, `${this.path}`, 'post', uploadParams);
+
+        return this.imgurAPICall(options);
     }
 });
 
